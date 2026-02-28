@@ -1,55 +1,127 @@
-﻿namespace CRUDTASK_SULAR
+﻿using System.ComponentModel;
+
+namespace CRUDTASK_SULAR
 {
     internal class Program
     {
         static void Main(string[] args)
         {
-            
-            string[] finishedTasks = {"Task 1: ACTIVITY 1",
-                "Task 2: ACTIVITY 2",
-                "Task 3: ACTIVITY 3",
-                "Task 4: ACTIVITY 4" };
 
-            string[] UnFinishedTasks = {"Task 5: ACTIVITY 5",
-                "Task 6: ACTIVITY 6",
-                "Task 7: ACTIVITY 7",
-                "Task 8: ACTIVITY 8" };
+            string[] list = {
+            "Create Tasks",
+            "Review Tasks",
+            "Update Tasks",
+            "Delete Tasks",
+            "Exit"
+        };
+            string[] tasks = new string[5];
+            int taskCount = 0;
 
+            Console.WriteLine("====================================");
+            Console.WriteLine("\t\tMENU");
+            Console.WriteLine("====================================");
 
-
-            Console.Write("\nPress Y to see Finished Tasks: ");
-            string userInput = Console.ReadLine();
-
-            if (userInput == "Y" || userInput == "y")
+            for (int x = 0; x < list.Length; x++)
             {
-                for (int i = 0; i < finishedTasks.Length; i++)
-                {
-                    Console.WriteLine(finishedTasks[i]);
-                }
+                Console.WriteLine("\t" + (x + 1) + ". " + list[x]);
             }
-            else if (userInput == "N" || userInput == "n")
-            {
-               Console.WriteLine("\nYou have chosen not to see the Finished Tasks.");
-               Console.Write("\nPress Y to see Unfinished Tasks:");
-               string userInput2 = Console.ReadLine();
+            Console.WriteLine("====================================");
 
-               if (userInput2 == "Y" || userInput2 == "y")
+            while (true)
+            {
+                Console.Write("\nWhat would you like to do?: ");
+                string choice = Console.ReadLine().ToLower().Trim();
+                
+
+                if (choice == "1" || choice == "create" || choice == "create tasks")
                 {
-                    for (int i = 0; i < UnFinishedTasks.Length; i++)
+                    if (taskCount < 5)
                     {
-                        Console.WriteLine(UnFinishedTasks[i]);
+                        Console.Write("Enter task name: ");
+                        tasks[taskCount] = Console.ReadLine();
+                        taskCount++;
+                        Console.WriteLine("Task added!");
+                        Console.WriteLine("\n====================================");
+                    }
+                    else
+                    {
+                        Console.WriteLine("List is full!");
+                        Console.WriteLine("\n====================================");
                     }
                 }
-                else if (userInput2 == "N" || userInput2 == "n")
+
+
+                else if (choice == "2" || choice == "review" || choice == "review tasks")
                 {
-                    Console.WriteLine("\nYou have chosen not to see the Unfinished Tasks.");
+                    Console.WriteLine("\n--- YOUR CURRENT TASKS ---");
+                    if (taskCount == 0)
+                    {
+                        Console.WriteLine("[Empty]");
+                        Console.WriteLine("\n====================================");
+                    }
+                    else
+                    {
+                        for (int i = 0; i < taskCount; i++)
+                        {
+                            Console.WriteLine((i + 1) + ". " + tasks[i]);
+                        }
+                        Console.WriteLine("\n====================================");
+                    }
                 }
 
+
+                else if (choice == "3" || choice == "update" || choice == "update tasks")
+                {
+                    if (taskCount == 0)
+                    {
+                        Console.WriteLine("Nothing to update.");
+                        Console.WriteLine("\n====================================");
+                    }
+                    else
+                    {
+                        Console.Write("Enter the task number to update (1-" + taskCount + "): ");
+                        int index = int.Parse(Console.ReadLine()) - 1;
+
+                        if (index >= 0 && index < taskCount)
+                        {
+                            Console.Write("Enter new task name: ");
+                            tasks[index] = Console.ReadLine();
+                            Console.WriteLine("Task updated!");
+                            Console.WriteLine("\n====================================");
+                        }
+                        else
+                        {
+                            Console.WriteLine("Invalid number.");
+                            Console.WriteLine("\n====================================");
+                        }
+                    }
+                }
+
+
+                else if (choice == "4" || choice == "delete" || choice == "delete tasks")
+                {
+                    Console.Write("Are you sure you want to delete ALL tasks? (yes/no): ");
+                    string confirm = Console.ReadLine().ToLower();
+
+                    if (confirm == "yes")
+                    {
+                        tasks = new string[5];
+                        taskCount = 0;
+                        Console.WriteLine("All tasks deleted.");
+                        Console.WriteLine("\n====================================");
+                    }
+                }
+
+
+                else if (choice == "exit" || choice == "5")
+                {
+                    Console.WriteLine("Goodbye!");
+                    Console.WriteLine("\n====================================");
+                    break;
+
+                }
             }
-
-
-
         }
-
     }
 }
+
