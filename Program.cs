@@ -15,12 +15,24 @@ namespace CRUDTASK_SULAR
 
             while (true)
             {
-                Console.WriteLine("\n---MENU ---");
-                Console.WriteLine("1. Create Task");
-                Console.WriteLine("2. Review Tasks");
-                Console.WriteLine("3. Update Task");
-                Console.WriteLine("4. Delete All");
-                Console.WriteLine("5. Exit");
+                string[] list = {
+                "Create Tasks",
+                "Review Tasks",
+                "Update Tasks",
+                "Delete Tasks",
+                "Exit"
+                                };
+
+
+                Console.WriteLine("\n====================================");
+                Console.WriteLine("\t\tMENU");
+                Console.WriteLine("====================================");
+
+                for (int x = 0; x < list.Length; x++)
+                {
+                    Console.WriteLine("\t" + (x + 1) + ". " + list[x]);
+                }
+                Console.WriteLine("====================================\n");
                 Console.Write("Select an option: ");
 
                 string choice = Console.ReadLine();
