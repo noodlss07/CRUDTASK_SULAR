@@ -1,125 +1,67 @@
-﻿@ -1,127 + 1,83 @@
-﻿using System.ComponentModel;
+﻿using System;
+using System.Collections.Generic;
+using System;
+using System.Collections.Generic;
+using TaskBusinessLayer;
+using TaskMODEL;
 
 namespace CRUDTASK_SULAR
 {
     internal class Program
     {
-        static void Main(string[] args)
+        public static void Main(string[] args)
         {
-
-            string[] list = {
-            "Create Tasks",
-            "Review Tasks",
-            "Update Tasks",
-            "Delete Tasks",
-            "Exit"
-        };
-            string[] tasks = new string[5];
-            int taskCount = 0;
-
-            Console.WriteLine("====================================");
-            Console.WriteLine("\t\tMENU");
-            Console.WriteLine("====================================");
-
-            for (int x = 0; x < list.Length; x++)
-            {
-                Console.WriteLine("\t" + (x + 1) + ". " + list[x]);
-            }
-            Console.WriteLine("====================================");
+            TaskAppService appService = new TaskAppService();
 
             while (true)
             {
-                Console.Write("\nWhat would you like to do?: ");
-                string choice = Console.ReadLine().ToLower().Trim();
+                Console.WriteLine("\n---MENU ---");
+                Console.WriteLine("1. Create Task");
+                Console.WriteLine("2. Review Tasks");
+                Console.WriteLine("3. Update Task");
+                Console.WriteLine("4. Delete All");
+                Console.WriteLine("5. Exit");
+                Console.Write("Select an option: ");
 
+                string choice = Console.ReadLine();
 
-                if (choice == "1" || choice == "create" || choice == "create tasks")
+                if (choice == "1")
                 {
-                    if (taskCount < 5)
+                    Console.Write("Task Name: ");
+                    string name = Console.ReadLine();
+                    string result = appService.CreateTask(name);
+                    Console.WriteLine(result);
+                }
+                else if (choice == "2")
+                {
+                    List<TaskModels> tasks = appService.data.GetAllTasks();
+                    if (tasks.Count == 0)
                     {
-                        Console.Write("Enter task name: ");
-                        tasks[taskCount] = Console.ReadLine();
-                        taskCount++;
-                        Console.WriteLine("Task added!");
-                        Console.WriteLine("\n====================================");
+                        Console.WriteLine("The list is empty.");
                     }
-                    else
+                    for (int i = 0; i < tasks.Count; i++)
                     {
-                        Console.WriteLine("List is full!");
-                        Console.WriteLine("\n====================================");
+                        Console.WriteLine((i + 1) + ". " + tasks[i].Name);
                     }
                 }
-
-
-                else if (choice == "2" || choice == "review" || choice == "review tasks")
+                else if (choice == "3")
                 {
-                    Console.WriteLine("\n--- YOUR CURRENT TASKS ---");
-                    if (taskCount == 0)
-                    {
-                        Console.WriteLine("[Empty]");
-                        Console.WriteLine("\n====================================");
-                    }
-                    else
-                    {
-                        for (int i = 0; i < taskCount; i++)
-                        {
-                            Console.WriteLine((i + 1) + ". " + tasks[i]);
-                        }
-                        Console.WriteLine("\n====================================");
-                    }
+                    Console.Write("Enter number to update: ");
+                    int num = int.Parse(Console.ReadLine());
+                    Console.Write("New Name: ");
+                    string newName = Console.ReadLine();
+
+                    string result = appService.UpdateTaskLogic(num, newName);
+                    Console.WriteLine(result);
                 }
-
-
-                else if (choice == "3" || choice == "update" || choice == "update tasks")
+                else if (choice == "4")
                 {
-                    if (taskCount == 0)
-                    {
-                        Console.WriteLine("Nothing to update.");
-                        Console.WriteLine("\n====================================");
-                    }
-                    else
-                    {
-                        Console.Write("Enter the task number to update (1-" + taskCount + "): ");
-                        int index = int.Parse(Console.ReadLine()) - 1;
-
-                        if (index >= 0 && index < taskCount)
-                        {
-                            Console.Write("Enter new task name: ");
-                            tasks[index] = Console.ReadLine();
-                            Console.WriteLine("Task updated!");
-                            Console.WriteLine("\n====================================");
-                        }
-                        else
-                        {
-                            Console.WriteLine("Invalid number.");
-                            Console.WriteLine("\n====================================");
-                        }
-                    }
+                    appService.data.DeleteAll();
+                    Console.WriteLine("All tasks cleared.");
                 }
-
-
-                else if (choice == "4" || choice == "delete" || choice == "delete tasks")
+                else if (choice == "5")
                 {
-                    Console.Write("Are you sure you want to delete ALL tasks? (yes/no): ");
-                    string confirm = Console.ReadLine().ToLower();
-
-                    if (confirm == "yes")
-                    {
-                        tasks = new string[5];
-                        taskCount = 0;
-                        Console.WriteLine("All tasks deleted.");
-                        Console.WriteLine("\n====================================");
-                    }
-                }
-
-
-                else if (choice == "exit" || choice == "5")
-                {
-                    Console.WriteLine("Goodbye!");
-                    Console.WriteLine("\n====================================");
                     break;
-
                 }
             }
         }

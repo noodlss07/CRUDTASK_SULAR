@@ -7,4 +7,25 @@
     <Nullable>enable</Nullable>
   </PropertyGroup>
 
+  <ItemGroup>
+    <Compile Remove="TaskBL\**" />
+    <Compile Remove="TaskDataL\**" />
+    <Compile Remove="TaskDataService\**" />
+    <Compile Remove="TaskMODEL\**" />
+    <EmbeddedResource Remove="TaskBL\**" />
+    <EmbeddedResource Remove="TaskDataL\**" />
+    <EmbeddedResource Remove="TaskDataService\**" />
+    <EmbeddedResource Remove="TaskMODEL\**" />
+    <None Remove="TaskBL\**" />
+    <None Remove="TaskDataL\**" />
+    <None Remove="TaskDataService\**" />
+    <None Remove="TaskMODEL\**" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="TaskBusinessLayer\TaskBusinessLayer.csproj" />
+    <ProjectReference Include="TaskDataLayer\TaskDataLayer.csproj" />
+    <ProjectReference Include="TaskMODEL\TaskMODEL.csproj" />
+  </ItemGroup>
+
 </Project>
