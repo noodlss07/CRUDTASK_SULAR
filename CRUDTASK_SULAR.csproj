@@ -5,6 +5,34 @@
     <TargetFramework>net8.0</TargetFramework>
     <ImplicitUsings>enable</ImplicitUsings>
     <Nullable>enable</Nullable>
+	<GenerateAssemblyInfo>false</GenerateAssemblyInfo>
   </PropertyGroup>
+
+  <ItemGroup>
+    <Compile Remove="TaskBL\**" />
+    <Compile Remove="TaskBusinessLayer\**" />
+    <Compile Remove="TaskDataLayer\**" />
+    <Compile Remove="TaskDataL\**" />
+    <Compile Remove="TaskDataService\**" />
+    <Compile Remove="TaskMODEL\**" />
+    <EmbeddedResource Remove="TaskBL\**" />
+    <EmbeddedResource Remove="TaskBusinessLayer\**" />
+    <EmbeddedResource Remove="TaskDataLayer\**" />
+    <EmbeddedResource Remove="TaskDataL\**" />
+    <EmbeddedResource Remove="TaskDataService\**" />
+    <EmbeddedResource Remove="TaskMODEL\**" />
+    <None Remove="TaskBL\**" />
+    <None Remove="TaskBusinessLayer\**" />
+    <None Remove="TaskDataLayer\**" />
+    <None Remove="TaskDataL\**" />
+    <None Remove="TaskDataService\**" />
+    <None Remove="TaskMODEL\**" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="TaskBusinessLayer\TaskBusinessLayer.csproj" />
+    <ProjectReference Include="TaskDataLayer\TaskDataLayer.csproj" />
+    <ProjectReference Include="TaskMODEL\TaskMODEL.csproj" />
+  </ItemGroup>
 
 </Project>
