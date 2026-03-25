@@ -1,5 +1,4 @@
-﻿
-using TaskDataLayer;
+﻿using TaskDataLayer;
 using TaskMODEL;
 
 namespace TaskBusinessLayer
@@ -17,8 +16,8 @@ namespace TaskBusinessLayer
             }
 
             TaskModels newTask = new TaskModels();
-            newTask.Name = name;
-            data.SaveTask(newTask);
+            newTask.taskName = name;
+            data.AddTask(newTask);
             return "Success: Task added!";
         }
 

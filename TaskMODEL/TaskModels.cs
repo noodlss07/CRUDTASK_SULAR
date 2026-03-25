@@ -2,6 +2,6 @@
 {
     public class TaskModels
     {
-        public string Name { get; set; }
+        public string taskName { get; set; }
     }
 }

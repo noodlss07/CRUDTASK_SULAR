@@ -8,19 +8,19 @@ namespace TaskDataLayer
         
         public List<TaskModels> taskList = new List<TaskModels>();
         
-        public void SaveTask(TaskModels newTask)
+        public void AddTask(TaskModels newTask)
         {
             taskList.Add(newTask);
         }
 
-        public List<TaskModels> GetAllTasks()
+        public List<TaskModels> ReviewTasks()
         {
             return taskList;
         }
         
         public void UpdateTask(int index, string newName)
         {
-            taskList[index].Name = newName;
+            taskList[index].taskName = newName;
         }
 
         public void DeleteAll()
