@@ -1,16 +1,13 @@
 ﻿using System;
-using System.Collections.Generic;
 using TaskBusinessLayer;
-using TaskMODEL;
 
 namespace CRUDTASK_SULAR
 {
     internal class Program
     {
-        public static void Main(string[] args)
+        static void Main(string[] args)
         {
             TaskAppService appService = new TaskAppService();
-
             while (true)
             {
                 string[] list = {
@@ -36,57 +33,70 @@ namespace CRUDTASK_SULAR
 
                 if (choice == "1")
                 {
+                    Console.WriteLine("\n====================================");
+                    Console.WriteLine("            CREATING TASK/s");
+                    Console.WriteLine("====================================");
                     Console.Write("Task Name: ");
-                    string name = Console.ReadLine();
-                    string result = appService.CreateTask(name);
-                    Console.WriteLine(result);
+                    Console.WriteLine(appService.CreateTask(Console.ReadLine()));
 
                     Console.WriteLine("Saving...");
                     System.Threading.Thread.Sleep(1500);
                 }
                 else if (choice == "2")
-                {   
-                    List<TaskModels> tasks = appService.data.ReviewTasks();
+                {
+                    Console.WriteLine("\n====================================");
+                    Console.WriteLine("          PREVIEW OF TASK/s");
+                    Console.WriteLine("====================================");
+                    var tasks = appService.data.jsonData.taskList;
+                    Console.WriteLine("Loading...\n");
+                    System.Threading.Thread.Sleep(1500);
+                    for (int i = 0; i < tasks.Count; i++)
+                    {
+                        Console.WriteLine($"{i + 1}. {tasks[i].taskName}");
+                    }
                     if (tasks.Count == 0)
                     {
                         Console.WriteLine("The list is empty.");
                     }
-                    for (int i = 0; i < tasks.Count; i++)
-                    {
-                        Console.WriteLine("Loading...\n");
-                        System.Threading.Thread.Sleep(1500);
-                        Console.WriteLine((i + 1) + ". " + tasks[i].taskName);
-                    }
-
                 }
                 else if (choice == "3")
                 {
-                    Console.Write("Enter number to update: ");
+                    Console.WriteLine("\n====================================");
+                    Console.WriteLine("         MODIFYING OF TASK/s");
+                    Console.WriteLine("====================================");
+                    Console.Write("Number to update: ");
                     int num = int.Parse(Console.ReadLine());
+
                     Console.WriteLine("Loading...\n");
                     System.Threading.Thread.Sleep(1500);
-                    Console.Write("New Name: ");
-                    string newName = Console.ReadLine();
 
-                    string result = appService.UpdateTaskLogic(num, newName);
-                    Console.WriteLine(result);
+                    Console.Write("New Name: ");
+                    Console.WriteLine(appService.UpdateTaskLogic(num, Console.ReadLine()));
+
                     Console.WriteLine("Saving...");
                     System.Threading.Thread.Sleep(1500);
                 }
                 else if (choice == "4")
                 {
+                    Console.WriteLine("\n====================================");
+                    Console.WriteLine("          DELETION OF TASK/s");
+                    Console.WriteLine("====================================");
                     appService.data.DeleteAll();
-                    Console.WriteLine("Loading...\n");
-                    System.Threading.Thread.Sleep(2500);
-                    Console.WriteLine("All tasks cleared.");
+                    Console.WriteLine("Cleared.");
+
+                    Console.WriteLine("Saving...");
+                    System.Threading.Thread.Sleep(1500);
                 }
                 else if (choice == "5")
                 {
+                    Console.WriteLine("\n====================================");
+                    Console.WriteLine("              GOODBYE!");
+                    Console.WriteLine("====================================\n");
                     Console.WriteLine("Exiting...");
                     System.Threading.Thread.Sleep(700);
+                    Console.WriteLine("\n====================================\n");
                     break;
                 }
-                
             }
         }
     }

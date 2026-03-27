@@ -5,27 +5,25 @@ namespace TaskDataLayer
 {
     public class TaskDataService
     {
-        
-        public List<TaskModels> taskList = new List<TaskModels>();
-        
-        public void AddTask(TaskModels newTask)
+        public TaskJsonData jsonData = new TaskJsonData();
+
+        public void AddTask(string name)
         {
-            taskList.Add(newTask);
+            jsonData.taskList.Add(new TaskModels { taskName = name, previousName = "New Task" });
+            jsonData.SaveData();
         }
 
-        public List<TaskModels> ReviewTasks()
+        public void UpdateTask(int index, string oldName, string newName)
         {
-            return taskList;
-        }
-        
-        public void UpdateTask(int index, string newName)
-        {
-            taskList[index].taskName = newName;
+            jsonData.taskList[index].taskName = newName;
+            jsonData.taskList[index].previousName = oldName;
+            jsonData.SaveData();
         }
 
         public void DeleteAll()
         {
-            taskList.Clear();
+            jsonData.taskList.Clear();
+            jsonData.SaveData();
         }
     }
 }
