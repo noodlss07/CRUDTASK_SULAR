@@ -30,6 +30,10 @@
   </ItemGroup>
 
   <ItemGroup>
+    <PackageReference Include="Microsoft.Data.SqlClient" Version="7.0.0" />
+  </ItemGroup>
+
+  <ItemGroup>
     <ProjectReference Include="TaskBusinessLayer\TaskBusinessLayer.csproj" />
     <ProjectReference Include="TaskDataLayer\TaskDataLayer.csproj" />
     <ProjectReference Include="TaskMODEL\TaskMODEL.csproj" />

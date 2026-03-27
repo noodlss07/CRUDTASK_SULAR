@@ -1,31 +1,55 @@
 ﻿using TaskDataLayer;
 using TaskMODEL;
+using System.Collections.Generic;
+using System;
 
 namespace TaskBusinessLayer
 {
     public class TaskAppService
     {
-        public TaskDataService data = new TaskDataService();
+        private TaskDataService dbData = new TaskDBData();
+        private TaskDataService jsonData = new TaskJsonData();
+
+        public List<TaskModels> GetAllTasks()
+        {
+            return dbData.GetTasks();
+        }
 
         public string CreateTask(string name)
         {
-            if (data.jsonData.taskList.Count >= 5) return "Error: List is full!";
-            data.AddTask(name);
-            return "Success: Task added!";
+            if (GetAllTasks().Count >= 5) return "Error: List is full!";
+
+            TaskModels newTask = new TaskModels();
+            newTask.TaskId = Guid.NewGuid();
+            newTask.taskName = name;
+            newTask.previousName = "New Task";
+
+            dbData.Add(newTask);
+            jsonData.Add(newTask);
+
+            return "Success: Task added to SQL and JSON!";
         }
 
-        public string UpdateTaskLogic(int userNumber, string newName)
+        public string UpdateTaskLogic(int displayNum, string newName)
         {
-            int index = userNumber - 1;
-            if (index < 0 || index >= data.jsonData.taskList.Count) return "Error: Invalid number.";
+            List<TaskModels> tasks = GetAllTasks();
+            int index = displayNum - 1;
+            if (index < 0 || index >= tasks.Count) return "Error: Invalid number.";
 
+            TaskModels task = tasks[index];
+            task.previousName = task.taskName;
+            task.taskName = newName;
             
-            string oldName = data.jsonData.taskList[index].taskName;
+            dbData.Update(task);
+            jsonData.Update(task);
 
-            
-            data.UpdateTask(index, oldName, newName);
+            return "Success: Updated everywhere!";
+        }
 
-            return $"Success: Updated '{oldName}' to '{newName}'!";
+        public void ClearAll()
+        {
+            dbData.DeleteAll();
+            jsonData.DeleteAll();
         }
     }
 }
