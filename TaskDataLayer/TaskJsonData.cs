@@ -25,7 +25,7 @@ namespace TaskDataLayer
                 TaskModels seed = new TaskModels();
                 seed.TaskId = Guid.NewGuid();
                 seed.taskName = "Sample Task";
-                seed.previousName = "New Task";
+                seed.previousName = "New Name";
                 taskList.Add(seed);
                 SaveDataToJsonFile();
             }
@@ -57,9 +57,17 @@ namespace TaskDataLayer
             }
         }
 
+
         public void Add(TaskModels task) { taskList.Add(task); SaveDataToJsonFile(); }
         public List<TaskModels> GetTasks() { RetrieveDataFromJsonFile(); return taskList; }
+        public void DeleteById(Guid id)
+        {
+            RetrieveDataFromJsonFile();
+            taskList.RemoveAll(t => t.TaskId == id);
+            SaveDataToJsonFile();
+        }
         public void DeleteAll() { taskList.Clear(); SaveDataToJsonFile(); }
         public void Update(TaskModels task) { SaveDataToJsonFile(); }
     }
 }
+

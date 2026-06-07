@@ -8,6 +8,7 @@ namespace TaskDataLayer
         void Add(TaskModels task);
         List<TaskModels> GetTasks();
         void Update(TaskModels task);
+        void DeleteById(Guid id);
         void DeleteAll();
     }
 }

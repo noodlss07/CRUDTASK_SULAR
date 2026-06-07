@@ -22,12 +22,12 @@ namespace TaskBusinessLayer
             TaskModels newTask = new TaskModels();
             newTask.TaskId = Guid.NewGuid();
             newTask.taskName = name;
-            newTask.previousName = "New Task";
+            newTask.previousName = "New Name";
 
             dbData.Add(newTask);
             jsonData.Add(newTask);
 
-            return "Success: Task added to SQL and JSON!";
+            return "\nSuccess: Task added to SQL and JSON!";
         }
 
         public string UpdateTaskLogic(int displayNum, string newName)
@@ -43,9 +43,16 @@ namespace TaskBusinessLayer
             dbData.Update(task);
             jsonData.Update(task);
 
-            return "Success: Updated everywhere!";
+            return "\nSuccess: Updated everywhere!";
         }
 
+        public string DeleteTaskById(Guid id)
+        {
+            if (GetAllTasks().Find(t => t.TaskId == id) == null) return "Error: Task not found.";
+            dbData.DeleteById(id);
+            jsonData.DeleteById(id);
+            return "Success";
+        }
         public void ClearAll()
         {
             dbData.DeleteAll();

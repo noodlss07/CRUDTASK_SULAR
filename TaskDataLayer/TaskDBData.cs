@@ -31,7 +31,7 @@ namespace TaskDataLayer
         public List<TaskModels> GetTasks()
         {
             List<TaskModels> tasks = new List<TaskModels>();
-            string query = "SELECT TaskId, TaskName, PreviousName FROM Tasks";
+            string query = "SELECT TaskId, TaskName, PreviousName FROM Tasks ORDER BY CreatedAt ASC";
             SqlCommand cmd = new SqlCommand(query, sqlConnection);
 
             sqlConnection.Open();
@@ -56,6 +56,16 @@ namespace TaskDataLayer
             cmd.Parameters.AddWithValue("@Prev", task.previousName);
             cmd.Parameters.AddWithValue("@Id", task.TaskId);
 
+            sqlConnection.Open();
+            cmd.ExecuteNonQuery();
+            sqlConnection.Close();
+        }
+
+        public void DeleteById(Guid id)
+        {
+            string query = "DELETE FROM Tasks WHERE TaskId = @Id";
+            SqlCommand cmd = new SqlCommand(query, sqlConnection);
+            cmd.Parameters.AddWithValue("@Id", id);
             sqlConnection.Open();
             cmd.ExecuteNonQuery();
             sqlConnection.Close();
